@@ -385,8 +385,8 @@ spec:
         params:
         - name: name
           value: use-secret
-#        - name: bundle
-#          value: quay.io/redhat-appstudio-tekton-catalog/task-sbom-json-check:0.1@sha256:717e6e33f02dbe1a28fb743f32699e002c944680c251a50b644f27becb9208e9
+        - name: bundle
+          value: quay.io/ebelarte/rhtap-bundles@sha256:ad76663f8d409daa5a9a1cf5851b2d6b14c3a8a62ef19c0e03fa56a4eba8aae8
         - name: kind
           value: task
         resolver: bundles
