@@ -1,28 +1,3 @@
-#ARG ARCH='x86_64'
-#ARG RHEL_VERSION='9.3'
-#ARG KERNEL_VERSION='5.14.0-362.13.1'
-#ARG BASE_DIGEST=''
-FROM quay.io/ebelarte/driver-toolkit:5.14.0-362.13.1.el9_3 as builder
-
-ARG ARCH='x86_64'
-ARG DRIVER_VERSION='535.104.05'
-ARG DRIVER_EPOCH='1'
-ARG KERNEL_VERSION='5.14.0-362.13.1.el9_3'
-ARG RHEL_VERSION='9.3'
-ARG KERNEL_SOURCES='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
-ARG KERNEL_OUTPUT='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
-
-WORKDIR /home/builder
-
-RUN export KVER=$(echo ${KERNEL_VERSION} | cut -d '-' -f 1) \
-        KREL=$(echo ${KERNEL_VERSION} | cut -d '-' -f 2 | sed 's/\.el._.$//') \
-        KDIST=$(echo ${KERNEL_VERSION} | cut -d '-' -f 2 | sed 's/^.*\(\.el._.\)$/\1/') \
-        DRIVER_STREAM=$(echo ${DRIVER_VERSION} | cut -d '.' -f 1) \
-        KSOURCES=$(echo ${KERNEL_VERSION}.${ARCH}) && \
-        git clone -b ${DRIVER_VERSION}  https://github.com/NVIDIA/open-gpu-kernel-modules.git && \
-        cd open-gpu-kernel-modules && \
-        make SYSSRC=${KERNEL_SOURCES} SYSOUT=${KERNEL_OUTPUT} modules
-
 FROM registry.access.redhat.com/ubi8/ubi AS sdk-builder
 MAINTAINER Enrique Belarte Luque <ebelarte@redhat.com>
 # Install packages
@@ -67,4 +42,6 @@ COPY config.json x509.genkey openssl-pkcs11.conf /etc/aws-kms-pkcs11/
 #COPY --from=build /usr/lib/libaws* /usr/lib/libs2n.so /usr/lib/
 # Copy shell script to update config
 COPY configure_pkcs.sh /bin/
-
+# Install linux-headers to get sign-file script, AWS client and pkcs11 lib
+#RUN pacman -Sy --noconfirm linux-headers aws-cli libp11 && \
+#    find /var/cache/pacman/ -type f -delete
