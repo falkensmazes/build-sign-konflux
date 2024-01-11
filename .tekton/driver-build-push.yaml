@@ -374,6 +374,26 @@ spec:
         operator: in
         values:
         - "false"
+# Custom
+    - name: read-secret
+      params:
+      - name: IMAGE_URL
+        value: $(tasks.build-container.results.IMAGE_URL)
+      - name: IMAGE_DIGEST
+        value: $(tasks.build-container.results.IMAGE_DIGEST)
+      runAfter:
+      - git-clone
+      taskRef:
+        params:
+        - name: name
+          value: use-secret
+#        - name: bundle
+#          value: quay.io/redhat-appstudio-tekton-catalog/task-sbom-json-check:0.1@sha256:717e6e33f02dbe1a28fb743f32699e002c944680c251a50b644f27becb9208e9
+        - name: kind
+          value: task
+        resolver: bundles
+
+#
     workspaces:
     - name: workspace
     - name: git-auth
@@ -394,4 +414,7 @@ spec:
   - name: git-auth
     secret:
       secretName: '{{ git_auth_secret }}'
+  - name: awsenriqueauth
+    secret:
+      secretName: awsenriqueauth
 status: {}
