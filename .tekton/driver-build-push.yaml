@@ -380,7 +380,7 @@ spec:
       - name: secret-name
         value: awsenriqueauth
       runAfter:
-      - git-clone
+      - clone-repository
       taskRef:
         params:
         - name: name
