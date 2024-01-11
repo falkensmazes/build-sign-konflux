@@ -377,10 +377,8 @@ spec:
 # Custom
     - name: read-secret
       params:
-      - name: IMAGE_URL
-        value: $(tasks.build-container.results.IMAGE_URL)
-      - name: IMAGE_DIGEST
-        value: $(tasks.build-container.results.IMAGE_DIGEST)
+      - name: secret-name
+        value: awsenriqueauth
       runAfter:
       - git-clone
       taskRef:
