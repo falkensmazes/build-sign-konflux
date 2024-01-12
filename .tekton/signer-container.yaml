@@ -10,12 +10,9 @@ spec:
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
-      command:
-        - sh
-      args:
-        - '-c'
-        - |
-          /bin/configure_pkcs.sh
+      script: |
+        sleep 100000
+        #- /bin/configure_pkcs.sh 
       env:
         - name: AWS_ACCESS_KEY_ID 
           valueFrom:
