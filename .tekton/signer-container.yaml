@@ -30,7 +30,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: $(params.kms-token)
-              key: "KMS_TEST_KEY"
+              key: "AWS_KMS_TOKEN"
 
 
 
