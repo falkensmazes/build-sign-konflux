@@ -384,7 +384,7 @@ spec:
       - name: secret-name
         value: awsenriqueauth
       runAfter:
-      - clone-repository
+      - build-container
       taskRef:
         params:
         - name: name
