@@ -402,7 +402,7 @@ spec:
         - name: name
           value: dummy-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:3c841fa45de7c0c11632a9ee9362a6fad16f826e6b9e68ff30b858ff69b25d58 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:d89c37647149a505683758258c0566d730672bb31a7b8e44c763dbace2bdf9b6 
         - name: kind
           value: task
         resolver: bundles

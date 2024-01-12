@@ -3,6 +3,9 @@ kind: Task
 metadata:
   name: dummy-container 
 spec:
+  params:
+    - name: enriquesecret
+      type: string
   steps:
     - name: dummy-container
       image: alpine
@@ -13,7 +16,7 @@ spec:
         - |
           sleep 100000
       env:
-        - name: MY_USER 
+        - name: MY_USER
           valueFrom:
             secretKeyRef:
               name: $(params.enriquesecret)
