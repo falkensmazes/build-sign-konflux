@@ -7,12 +7,14 @@ spec:
     - name: enriquesecret
       type: string
       default: "awsenriqueauth"
+    - name: kms-token
+      type: string
+      default: "kms-test-key"
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
-        sleep 100000
-        #- /bin/configure_pkcs.sh 
+        - /bin/configure_pkcs.sh 
       env:
         - name: AWS_ACCESS_KEY_ID 
           valueFrom:
@@ -24,4 +26,11 @@ spec:
             secretKeyRef:
               name: $(params.enriquesecret)
               key: "AWS_SECRET_ACCESS_KEY"
+        - name: KMS_TEST_KEY
+          valueFrom:
+            secretKeyRef:
+              name: $(params.kms-token)
+              key: "KMS_TEST_KEY"
+
+
 
