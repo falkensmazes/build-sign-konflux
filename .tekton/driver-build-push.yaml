@@ -384,17 +384,30 @@ spec:
       - name: secret-name
         value: awsenriqueauth
       runAfter:
-      - build-container
+      - clone-repsitory
       taskRef:
         params:
         - name: name
           value: use-secret
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:aa8e21afb182a9a20aa74995efdbb8864d77b841405806fe145a923e15e80b96 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:e80e48dfbb219e1e77daf68915f9b063ee23e0b9f14434002b66004b0baf1499 
         - name: kind
           value: task
         resolver: bundles
 
+    - name: dummy-container
+      runAfter:
+      - read-secret
+      taskRef:
+        params:
+        - name: name
+          value: dummy-container
+        - name: bundle
+          value: quay.io/ebelarte/rhtap-bundles@sha256:0c5ec57e015760acf9bb63b116c3a1232f227301bda42114a23fa028fe3d5b14 
+        - name: kind
+          value: task
+        resolver: bundles
+          
 #
     workspaces:
     - name: workspace

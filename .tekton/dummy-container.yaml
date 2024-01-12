@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: dummy-container 
+spec:
+  inputs:
+    resources:
+      - name: awsenriqueauth 
+        type: secret
+  steps:
+    - name: dummy-container
+      image: alpine
+      command:
+        - sh
+      args:
+        - '-c'
+        - |
+          sleep 100000
+
