@@ -23,7 +23,8 @@ RUN export KVER=$(echo ${KERNEL_VERSION} | cut -d '-' -f 1) \
         cd open-gpu-kernel-modules && \
         make SYSSRC=${KERNEL_SOURCES} SYSOUT=${KERNEL_OUTPUT} modules
 
-FROM registry.access.redhat.com/ubi8/ubi AS sdk-builder
+#FROM registry.access.redhat.com/ubi8/ubi AS sdk-builder
+FROM quay.io/centos/centos AS sdk-builder
 MAINTAINER Enrique Belarte Luque <ebelarte@redhat.com>
 # Install packages
 RUN INSTALL_PKGS="clang unzip cmake zlib-devel openssl-devel libcurl-devel git p11-kit-devel json-c-devel" && \
@@ -44,7 +45,8 @@ RUN git clone https://github.com/JackOfMostTrades/aws-kms-pkcs11.git && \
     cd aws-kms-pkcs11 && \
     AWS_SDK_PATH=~/aws-sdk-cpp make
 
-FROM registry.access.redhat.com/ubi8/ubi
+#FROM registry.access.redhat.com/ubi8/ubi
+FROM quay.io/centos/centos AS sdk-builder
 # Set enviroment variables for AWS auth
 ENV AWS_ACCESS_KEY_ID=your_access_key_id
 ENV AWS_SECRET_ACCESS_KEY=your_secret_access_key
