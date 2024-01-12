@@ -390,7 +390,7 @@ spec:
         - name: name
           value: use-secret
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:7be9990893e028fe188afe9f0b70a8cf25b8458b76532eda9e07c4ecb68099dd
+          value: quay.io/ebelarte/rhtap-bundles@sha256:aa8e21afb182a9a20aa74995efdbb8864d77b841405806fe145a923e15e80b96 
         - name: kind
           value: task
         resolver: bundles
@@ -416,7 +416,4 @@ spec:
   - name: git-auth
     secret:
       secretName: '{{ git_auth_secret }}'
-  - name: awsenriqueauth
-    secret:
-      secretName: awsenriqueauth
 status: {}
