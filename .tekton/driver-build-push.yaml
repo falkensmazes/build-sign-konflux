@@ -390,7 +390,7 @@ spec:
         - name: name
           value: use-secret
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:1c5f44d473bb29319b55582b32ba5db92d888864c5d18b1ff0d671e9705f53f7
+          value: quay.io/ebelarte/rhtap-bundles@sha256:7be9990893e028fe188afe9f0b70a8cf25b8458b76532eda9e07c4ecb68099dd
         - name: kind
           value: task
         resolver: bundles
