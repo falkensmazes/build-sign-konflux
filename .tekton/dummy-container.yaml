@@ -6,6 +6,7 @@ spec:
   params:
     - name: enriquesecret
       type: string
+      default: "awsenriqueauth"
   steps:
     - name: dummy-container
       image: alpine
