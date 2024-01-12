@@ -3,10 +3,6 @@ kind: Task
 metadata:
   name: dummy-container 
 spec:
-  inputs:
-    resources:
-      - name: awsenriqueauth 
-        type: secret
   steps:
     - name: dummy-container
       image: alpine
@@ -16,4 +12,9 @@ spec:
         - '-c'
         - |
           sleep 100000
-
+      env:
+        - name: MY_USER 
+          valueFrom:
+            secretKeyRef:
+              name: $(params.enriquesecret)
+              key: "AWS_ACCESS_KEY_ID"

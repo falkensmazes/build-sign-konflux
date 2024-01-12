@@ -16,10 +16,6 @@ metadata:
   name: driver-build-on-push
   namespace: ebelarte-tenant
 spec:
-  resources:
-    - name: awsenriqueauth 
-      resourceRef:
-        name: awsenriqueauth
   params:
   - name: dockerfile
     value: Dockerfile-build
@@ -117,6 +113,9 @@ spec:
     - default: "false"
       description: Build a source image.
       name: build-source-image
+      type: string
+    - name: enriquesecret
+      default: "awsenriqueauth"
       type: string
     results:
     - description: ""
@@ -403,7 +402,7 @@ spec:
         - name: name
           value: dummy-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:0c5ec57e015760acf9bb63b116c3a1232f227301bda42114a23fa028fe3d5b14 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:3c841fa45de7c0c11632a9ee9362a6fad16f826e6b9e68ff30b858ff69b25d58 
         - name: kind
           value: task
         resolver: bundles
