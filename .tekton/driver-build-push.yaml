@@ -378,31 +378,15 @@ spec:
         values:
         - "false"
 # Custom
-    - name: read-secret
-      params:
-      - name: secret-name
-        value: awsenriqueauth
-      runAfter:
-      - clone-repository
-      taskRef:
-        params:
-        - name: name
-          value: use-secret
-        - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:e80e48dfbb219e1e77daf68915f9b063ee23e0b9f14434002b66004b0baf1499 
-        - name: kind
-          value: task
-        resolver: bundles
-
-    - name: dummy-container
+    - name: signer-container
       runAfter:
       - read-secret
       taskRef:
         params:
         - name: name
-          value: dummy-container
+          value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:c17535beb175f17a4febe4928620d89207701a8998889f78fd51307cd0b72d79 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:a15d9b3ea1f5bcf643ab8521b4f1d7b6abbd53694091e21bf01634a8fc1fde39
         - name: kind
           value: task
         resolver: bundles

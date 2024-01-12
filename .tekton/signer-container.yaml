@@ -1,24 +1,30 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: dummy-container 
+  name: signer-container 
 spec:
   params:
     - name: enriquesecret
       type: string
       default: "awsenriqueauth"
   steps:
-    - name: dummy-container
-      image: alpine
+    - name: signer-container
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       command:
         - sh
       args:
         - '-c'
         - |
-          sleep 100000
+          /bin/configure_pkcs.sh
       env:
-        - name: MY_USER
+        - name: AWS_ACCESS_KEY_ID 
           valueFrom:
             secretKeyRef:
               name: $(params.enriquesecret)
               key: "AWS_ACCESS_KEY_ID"
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: $(params.enriquesecret)
+              key: "AWS_SECRET_ACCESS_KEY"
+
