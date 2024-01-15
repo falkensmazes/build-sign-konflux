@@ -5,8 +5,8 @@ metadata:
 spec:
   workspaces:
     - name: source
-      mountPath: /foo
-     
+    - name: built-module
+
   params:
     - name: enriquesecret
       type: string

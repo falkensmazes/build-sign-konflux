@@ -387,10 +387,15 @@ spec:
         - name: name
           value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:85538f7f87a936bd11f58babc2905c64f5ef1f93e501927bfbcd677ac90b0d13 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:cb0081e58aa0d54b786a953266e22a629827520028ead5e9e7f69b14e9f6f8de
         - name: kind
           value: task
         resolver: bundles
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
       workspaces:
       - name: built-module
         workspace: workspace
