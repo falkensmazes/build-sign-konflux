@@ -37,5 +37,6 @@ spec:
               key: "AWS_KMS_TOKEN"
 
   workspaces:
-    - name: workspace
+    - name: built-module
+      workspace: workspace 
    
