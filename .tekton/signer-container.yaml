@@ -4,7 +4,7 @@ metadata:
   name: signer-container 
 spec:
   workspaces:
-    - name: source 
+    - name: built-module 
       workspace: workspace
   params:
     - name: enriquesecret
@@ -36,5 +36,6 @@ spec:
               name: $(params.kms-token)
               key: "AWS_KMS_TOKEN"
 
-
-
+  workspaces:
+    - name: workspace
+   
