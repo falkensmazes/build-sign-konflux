@@ -392,7 +392,7 @@ spec:
           value: task
         resolver: bundles
       workspaces:
-      - name: workspace
+      - name: signer-workspace 
         workspace: workspace
           
 #

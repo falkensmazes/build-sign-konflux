@@ -26,7 +26,7 @@ ENV AWS_SECRET_ACCESS_KEY=your_secret_access_key
 ENV AWS_DEFAULT_REGION=eu-west-3
 ENV AWS_KMS_TOKEN=xxxxxxx-xxxx-xxxxxx-xxxxx
 # Install packages
-RUN INSTALL_PKGS="openssl openssl-pkcs11 kernel-headers unzip less" && \
+RUN INSTALL_PKGS="openssl openssl-pkcs11 kernel-devel unzip less" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all
