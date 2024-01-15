@@ -387,14 +387,15 @@ spec:
         - name: name
           value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:45efce3c7692ae02bf43e0a8d5404ffd036c07968868383771bd9b9955f6ce7a 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:c677043dc53d45af94e9c3abd1a46d70661199967af1ad2f7bc58136e9c21e59
         - name: kind
           value: task
         resolver: bundles
       workspaces:
       - name: compiled-modules 
-          
+        workspace: workspace
 #
+
     workspaces:
     - name: workspace
     - name: git-auth
