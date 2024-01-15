@@ -4,7 +4,7 @@ metadata:
   name: signer-container 
 spec:
   workspaces:
-    - name: workspace
+    - name: signer-container 
       workspace: workspace
   params:
     - name: enriquesecret
@@ -17,7 +17,7 @@ spec:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
-        ls -R /workspace
+        ls -R /workspace/signer-container/
         /bin/configure_pkcs.sh
       env:
         - name: AWS_ACCESS_KEY_ID 
