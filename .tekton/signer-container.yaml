@@ -16,7 +16,7 @@ spec:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
-        ls -R /workspace/signer-container/
+        ls -R /workspace/workspace
         /bin/configure_pkcs.sh
       env:
         - name: AWS_ACCESS_KEY_ID 
