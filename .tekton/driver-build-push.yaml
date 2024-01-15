@@ -387,12 +387,12 @@ spec:
         - name: name
           value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:49f8f63f720acacf4dcbbe7bbe7a44664a7f4a7e00160a156bafa4d3b2110c4d 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:62142e4464cefc92afd5fab8f3fc1f899a430d248a6135af30d9dd4935ebd704
         - name: kind
           value: task
         resolver: bundles
       workspaces:
-      - name: signer-workspace 
+      - name: workspace 
         workspace: workspace
           
 #
