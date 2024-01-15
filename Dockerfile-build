@@ -7,6 +7,8 @@ ARG KERNEL_VERSION='5.14.0-362.13.1.el9_3'
 ARG RHEL_VERSION='9.3'
 ARG KERNEL_SOURCES='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
 ARG KERNEL_OUTPUT='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
+# Only for kmm_ci:
+ARG KERNEL_SRC_DIR='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
 
 WORKDIR /home/builder
 
