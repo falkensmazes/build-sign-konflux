@@ -4,9 +4,8 @@ metadata:
   name: signer-container 
 spec:
   workspaces:
-    - name: source
     - name: built-module
-
+      workspace: workspace
   params:
     - name: enriquesecret
       type: string
