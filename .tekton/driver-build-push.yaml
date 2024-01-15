@@ -387,7 +387,7 @@ spec:
         - name: name
           value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:3f9601e726ec7a789aa5fcca3ac3940e14704de156ff4ae3416e8666cee9ab6a
+          value: quay.io/ebelarte/rhtap-bundles@sha256:839eb4140eaed9ad2208ee6e086709c7a47560eb7871b6c37b47a6a92494cb8a 
         - name: kind
           value: task
         resolver: bundles
