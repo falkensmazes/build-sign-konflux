@@ -19,7 +19,8 @@ RUN export KVER=$(echo ${KERNEL_VERSION} | cut -d '-' -f 1) \
         KSOURCES=$(echo ${KERNEL_VERSION}.${ARCH}) && \
         git clone https://github.com/enriquebelarte/kmm-kmod && \
         cd kmm-kmod && \
-        make 
+        make && \
+        cp /home/builder/kmm-kmod/kmm_ci_a.ko /workspace/workspace/
         #git clone -b ${DRIVER_VERSION}  https://github.com/NVIDIA/open-gpu-kernel-modules.git
         #cd open-gpu-kernel-modules && \
         #make SYSSRC=${KERNEL_SOURCES} SYSOUT=${KERNEL_OUTPUT} modules
