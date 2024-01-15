@@ -4,7 +4,9 @@ metadata:
   name: signer-container 
 spec:
   workspaces:
-    - name: workspace
+    - name: source
+      mountPath: /foo
+     
   params:
     - name: enriquesecret
       type: string
