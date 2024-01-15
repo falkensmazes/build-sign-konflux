@@ -5,7 +5,6 @@ metadata:
 spec:
   workspaces:
     - name: built-module
-      workspace: workspace
   params:
     - name: enriquesecret
       type: string
@@ -16,9 +15,10 @@ spec:
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
+      workingDir: $(workspaces.built-module.path)
       script: |
         #!/usr/bin/env bash
-        ls -l /workspace/source/source
+        ls -l /workspace/
         /bin/configure_pkcs.sh
         sleep 100000
       env:
