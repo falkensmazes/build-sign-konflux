@@ -392,8 +392,7 @@ spec:
           value: task
         resolver: bundles
       workspaces:
-      - name: signer-container 
-        workspace: workspace
+      - name: compiled-modules 
           
 #
     workspaces:
