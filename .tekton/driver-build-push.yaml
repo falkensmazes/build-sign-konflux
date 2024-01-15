@@ -394,6 +394,8 @@ spec:
       workspaces:
       - name: built-module
         workspace: workspace
+      - name: source
+        workspace: workspace
 #
 
     workspaces:
