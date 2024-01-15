@@ -38,10 +38,5 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 COPY --from=sdk-builder /aws-kms-pkcs11/aws_kms_pkcs11.so /usr/lib64/pkcs11/
 # Copy configuration files for aws-kms-pkcs11 library
 COPY config.json x509.genkey openssl-pkcs11.conf /etc/aws-kms-pkcs11/
-# Copy aws-sdk needed libraries
-#COPY --from=build /usr/lib/libaws* /usr/lib/libs2n.so /usr/lib/
 # Copy shell script to update config
 COPY configure_pkcs.sh /bin/
-# Install linux-headers to get sign-file script, AWS client and pkcs11 lib
-#RUN pacman -Sy --noconfirm linux-headers aws-cli libp11 && \
-#    find /var/cache/pacman/ -type f -delete
