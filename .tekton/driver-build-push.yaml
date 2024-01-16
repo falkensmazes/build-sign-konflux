@@ -399,8 +399,6 @@ spec:
       workspaces:
       - name: built-modules
         workspace: workspace
-#
-
     workspaces:
     - name: workspace
     - name: git-auth
