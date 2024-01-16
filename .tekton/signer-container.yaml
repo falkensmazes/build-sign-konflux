@@ -1,11 +1,11 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: signer-container 
+  name: signer-container
 spec:
   workspaces:
-  - name: built-modules
-    mountPath: /tmp
+    - name: built-modules
+      mountPath: /tmp
   params:
     - name: enriquesecret
       type: string
@@ -22,7 +22,7 @@ spec:
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
-        - name: AWS_ACCESS_KEY_ID 
+        - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
               name: $(params.enriquesecret)
@@ -32,7 +32,7 @@ spec:
             secretKeyRef:
               name: $(params.enriquesecret)
               key: "AWS_SECRET_ACCESS_KEY"
-        - name: AWS_KMS_TOKEN 
+        - name: AWS_KMS_TOKEN
           valueFrom:
             secretKeyRef:
               name: $(params.kms-token)
