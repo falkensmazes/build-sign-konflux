@@ -3,9 +3,6 @@ kind: Task
 metadata:
   name: signer-container 
 spec:
-  workspaces:
-    - name: shared-workspace 
-
   params:
     - name: enriquesecret
       type: string

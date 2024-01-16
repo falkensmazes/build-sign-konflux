@@ -242,7 +242,7 @@ spec:
       workspaces:
       - name: source
         workspace: workspace
-      - name: built-modules
+      - name: source-from-build
         workspace: shared-workspace
     - name: build-source-image
       params:
@@ -389,7 +389,7 @@ spec:
         - name: name
           value: signer-container
         - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:c1529e1be97127ab8741032ef719afe12acda91d30c9750c6b1d3944bdb63409 
+          value: quay.io/ebelarte/rhtap-bundles@sha256:d33c7b2e5dddbc9ddafe47173126133c7ad8fd7875609f0b1acdfbf47210d559 
         - name: kind
           value: task
         resolver: bundles
