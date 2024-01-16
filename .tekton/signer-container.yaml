@@ -3,6 +3,8 @@ kind: Task
 metadata:
   name: signer-container 
 spec:
+  workspaces:
+    - name: built-modules
   params:
     - name: enriquesecret
       type: string
@@ -13,10 +15,11 @@ spec:
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
+      workingDir: $(workspaces.built-modules.path)
       script: |
         #!/usr/bin/env bash
-        ls -l /workspace/
-        /bin/configure_pkcs.sh
+        ls -l 
+        #/bin/configure_pkcs.sh
         sleep 100000
       env:
         - name: AWS_ACCESS_KEY_ID 
