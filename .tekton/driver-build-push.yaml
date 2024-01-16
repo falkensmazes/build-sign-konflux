@@ -242,8 +242,6 @@ spec:
       workspaces:
       - name: source
         workspace: workspace
-      - name: shared-workspace
-        workspace: shared-workspace
     - name: build-source-image
       params:
       - name: BINARY_IMAGE
@@ -400,13 +398,12 @@ spec:
         - "false"
       workspaces:
       - name: built-modules
-        workspace: shared-workspace
+        workspace: workspace
 #
 
     workspaces:
     - name: workspace
     - name: git-auth
-    - name: shared-workspace
       optional: true
   taskRunTemplate: {}
   workspaces:
@@ -421,18 +418,7 @@ spec:
           requests:
             storage: 1Gi
       status: {}
-  - name: shared-workspace
-    volumeClaimTemplate:
-      metadata:
-        creationTimestamp: null
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
-      status: {}
-  - name: git-auth
+ - name: git-auth
     secret:
       secretName: '{{ git_auth_secret }}'
 status: {}
