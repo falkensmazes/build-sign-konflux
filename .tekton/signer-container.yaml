@@ -37,5 +37,3 @@ spec:
             secretKeyRef:
               name: $(params.kms-token)
               key: "AWS_KMS_TOKEN"
-
-   

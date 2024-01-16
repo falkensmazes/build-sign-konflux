@@ -377,6 +377,28 @@ spec:
         operator: in
         values:
         - "false"
+# Custom
+    - name: signer-container
+      runAfter:
+      #- clone-repository
+      - build-container
+      taskRef:
+        params:
+        - name: name
+          value: signer-container
+        - name: bundle
+          value: quay.io/ebelarte/rhtap-bundles@sha256:65973478de95a289f09210216e9e7ca19c2c4130a4931fda033722ff36dfd587
+        - name: kind
+          value: task
+        resolver: bundles
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
+      workspaces:
+      - name: built-modules
+        workspace: workspace
     workspaces:
     - name: workspace
     - name: git-auth
