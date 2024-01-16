@@ -1,11 +1,8 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: signer-container
 spec:
-#  workspaces:
-#    - name: built-modules
-#      mountPath: /tmp
   params:
     - name: enriquesecret
       type: string
@@ -13,12 +10,16 @@ spec:
     - name: kms-token
       type: string
       default: "kms-test-key"
+  workspaces:
+    - name: build-modules
+      description: The workspace where compile modules will be stored
+      mountPath: /tmp
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
-        #ls -l $(workspaces.built-modules.path)
+        ls -l $(workspaces.built-modules.path)
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
