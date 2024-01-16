@@ -242,7 +242,7 @@ spec:
       workspaces:
       - name: source
         workspace: workspace
-      - name: source-from-build
+      - name: shared-workspace
         workspace: shared-workspace
     - name: build-source-image
       params:
