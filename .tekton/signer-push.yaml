@@ -374,7 +374,8 @@ spec:
         operator: in
         values:
         - "false"
-    - name: signer-container
+         #
+    - name: signer-container 
       params:
       - name: IMAGE_URL
         value: $(tasks.build-container.results.IMAGE_URL)
@@ -385,7 +386,7 @@ spec:
       taskRef:
         params:
         - name: name
-          value: signer-container 
+          value: signer-container
         - name: bundle
           value: quay.io/ebelarte/rhtap-bundles@sha256:83a35e6905f99481e21b12d5358730d76c305354305f5b6469754c4d7707db8f
         - name: kind
@@ -395,11 +396,8 @@ spec:
       - input: $(params.skip-checks)
         operator: in
         values:
-        - "false"          
-      workspaces:
-        name: built-modules
-        workspace: workspace
-          #          
+        - "false"
+          #         
     workspaces:
     - name: workspace
     - name: git-auth
