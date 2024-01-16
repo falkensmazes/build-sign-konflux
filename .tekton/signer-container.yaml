@@ -4,8 +4,8 @@ metadata:
   name: signer-container 
 spec:
   workspaces:
-    - name: built-modules
-      mountPath: /tmp
+  - name: built-modules
+    mountPath: /tmp
   params:
     - name: enriquesecret
       type: string
