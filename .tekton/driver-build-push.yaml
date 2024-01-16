@@ -380,7 +380,6 @@ spec:
 # Custom
     - name: signer-container
       runAfter:
-      #- clone-repository
       - build-container
       taskRef:
         params:
