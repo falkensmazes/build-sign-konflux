@@ -20,7 +20,7 @@ RUN export KVER=$(echo ${KERNEL_VERSION} | cut -d '-' -f 1) \
         git clone https://github.com/enriquebelarte/kmm-kmod && \
         cd kmm-kmod && \
         make && \
-        ls -l / 
+        find / -name source  
         #cp *.ko $(workspaces.source.path)
         #git clone -b ${DRIVER_VERSION}  https://github.com/NVIDIA/open-gpu-kernel-modules.git
         #cd open-gpu-kernel-modules && \
