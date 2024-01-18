@@ -385,13 +385,13 @@ spec:
       - build-container
       taskRef:
         params:
-        - name: name
-          value: signer-container
-        - name: bundle
-          value: quay.io/ebelarte/rhtap-bundles@sha256:98ec20eebb9ca115cab62cf3f31010ec69cdd446eaf7b87205c1faa91e783eda
-        - name: kind
-          value: task
-        resolver: bundles
+          - name: url
+            value: https://github.com/nvidia-build-sign-rhtap
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: .tekton/signer-container.yaml            
+        resolver: git 
       when:
       - input: $(params.skip-checks)
         operator: in
