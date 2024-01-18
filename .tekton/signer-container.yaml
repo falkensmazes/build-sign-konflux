@@ -22,11 +22,13 @@ spec:
       script: |
         #!/usr/bin/env bash
         ls -lR $SOURCE_PATH
-        echo "Image URL:  $IMAGE_URL $(tasks.build-container.results.IMAGE_URL)"
+        echo "Image URL:  $IMAGE_URL"
           echo "Image Digest:  $IMAGE_DIGEST"
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
+        - name: IMAGE_URL
+          value: $(tasks.build-container.results.IMAGE_URL)
         - name: SOURCE_PATH
           value: $(workspaces.buildmodules.path)
         - name: AWS_ACCESS_KEY_ID
