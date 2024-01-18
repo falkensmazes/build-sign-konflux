@@ -31,11 +31,6 @@ spec:
       env:
         - name: SOURCE_PATH
           value: $(workspaces.buildmodules.path)
-        - name: IMAGE_URL
-          value: $(tasks.build-container.results.IMAGE_URL)
-        - name: IMAGE_DIGEST
-          value: $(tasks.build-container.results.IMAGE_DIGEST)
-        - name: IMAGE_PATH
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
