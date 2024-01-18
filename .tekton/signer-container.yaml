@@ -11,9 +11,7 @@ spec:
       type: string
       default: "kms-test-key"
     - name: IMAGE_URL
-      type: string
     - name: IMAGE_DIGEST
-      type: string
   workspaces:
     - name: buildmodules
       description: The workspace where compile modules will be stored
@@ -24,8 +22,8 @@ spec:
       script: |
         #!/usr/bin/env bash
         ls -lR $SOURCE_PATH
-        echo $IMAGE_URL
-        echo $IMAGE_DIGEST 
+        echo "Image URL:  $IMAGE_URL"
+          echo "Image Digest:  $IMAGE_DIGEST"
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
