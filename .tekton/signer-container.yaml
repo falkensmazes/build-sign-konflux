@@ -11,7 +11,7 @@ spec:
       type: string
       default: "kms-test-key"
   workspaces:
-    - name: build-modules
+    - name: buildmodules
       description: The workspace where compile modules will be stored
         #mountPath: /workspace/build-modules
   steps:
@@ -19,8 +19,8 @@ spec:
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
-        ls -l /workspace/
-        ls -l $(workspaces.build-modules.path)/source
+        ls -lR /workspace/
+        ls -l $(workspaces.buildmodules.path)/source
         #/bin/configure_pkcs.sh
         sleep 100000
       env:

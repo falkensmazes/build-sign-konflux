@@ -398,7 +398,7 @@ spec:
         values:
         - "false"
       workspaces:
-      - name: build-modules
+      - name: buildmodules
         workspace: workspace          
           #         
     workspaces:
