@@ -13,7 +13,7 @@ spec:
   workspaces:
     - name: build-modules
       description: The workspace where compile modules will be stored
-      mountPath: /tmp
+      mountPath: /workspace/build-modules
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
