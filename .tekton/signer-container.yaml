@@ -19,11 +19,12 @@ spec:
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
-        ls -lR /workspace/
-        ls -l $(workspaces.buildmodules.path)/source
+        ls -lR $SOURCE_PATH 
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
+        - name: SOURCE_PATH
+          value: $(workspaces.buildmodules.path)
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
