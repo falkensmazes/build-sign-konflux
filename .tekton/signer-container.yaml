@@ -19,7 +19,8 @@ spec:
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
-        ls -l $(workspaces.built-modules.path)
+        ls -l /workspace/
+        ls -l "$(workspaces.build-modules.path)"
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
