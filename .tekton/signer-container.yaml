@@ -23,7 +23,9 @@ spec:
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
-        ls -lR $SOURCE_PATH 
+        ls -lR $SOURCE_PATH
+        echo $IMAGE_URL
+        echo $IMAGE_DIGEST 
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
