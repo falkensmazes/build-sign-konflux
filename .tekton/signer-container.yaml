@@ -29,6 +29,8 @@ spec:
       env:
         - name: IMAGE_URL
           value: $(params.IMAGE_URL)
+        - name: IMAGE_DIGEST
+          value: $(params.IMAGE_DIGEST)
         - name: SOURCE_PATH
           value: $(workspaces.buildmodules.path)
         - name: AWS_ACCESS_KEY_ID
