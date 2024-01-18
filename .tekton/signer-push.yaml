@@ -386,7 +386,7 @@ spec:
       taskRef:
         params:
           - name: url
-            value: https://github.com/nvidia-build-sign-rhtap
+            value: https://github.com/enriquebelarte/nvidia-build-sign-rhtap.git
           - name: revision
             value: main
           - name: pathInRepo
