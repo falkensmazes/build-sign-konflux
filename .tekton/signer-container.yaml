@@ -13,14 +13,14 @@ spec:
   workspaces:
     - name: build-modules
       description: The workspace where compile modules will be stored
-      mountPath: /workspace/build-modules
+        #mountPath: /workspace/build-modules
   steps:
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8
       script: |
         #!/usr/bin/env bash
         ls -l /workspace/
-        ls -l "$(workspaces.build-modules.path)"
+        ls -l $(workspaces.build-modules.path)/source
         #/bin/configure_pkcs.sh
         sleep 100000
       env:
