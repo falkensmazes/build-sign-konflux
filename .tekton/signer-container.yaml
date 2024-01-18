@@ -28,7 +28,7 @@ spec:
         sleep 100000
       env:
         - name: IMAGE_URL
-          value: $(tasks.build-container.results.IMAGE_URL)
+          value: $(params.IMAGE_URL)
         - name: SOURCE_PATH
           value: $(workspaces.buildmodules.path)
         - name: AWS_ACCESS_KEY_ID
