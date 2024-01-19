@@ -21,10 +21,10 @@ spec:
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.2 
       script: |
         #!/usr/bin/env bash
+        set -x
         echo "Image URL:  $IMAGE_URL"
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
-        mkdir /modules-image
         podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && podman rm tc
         sign_file=$(find /usr/src/kernels -name "sign-file")
         # Loop through each .ko file in the directory
