@@ -18,17 +18,29 @@ spec:
         #mountPath: /workspace/build-modules
   steps:
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.1
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.2
       script: |
         #!/usr/bin/env bash
         echo "Image URL:  $IMAGE_URL"
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         mkdir /modules-image
-        skopeo copy docker://$IMAGE_URL dir:/modules-image
-        ls -lR /modules-image/
-        #cp /modules-image/home/builder/kmm-kmod/*.ko  /
-        
+        podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && podman rm tc
+        sign_file=$(find /usr/src/kernels -name "sign-file")
+        # Loop through each .ko file in the directory
+        directory="/modules-image/kmm-kmod"
+        for file in "$directory"/*.ko; do
+          # Check if there are matching files
+          if [ -e "$file" ]; then
+            # Sign each module file
+            $sign_file sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
+            /etc/aws-kms-pkcs11/mycert.pem "$directory/$file" "$directory${file%.ko}-signed.ko"
+          else
+            echo "No .ko files found in the directory"
+            exit 1
+          fi
+        done
+                
          
       env:
         - name: IMAGE_URL
