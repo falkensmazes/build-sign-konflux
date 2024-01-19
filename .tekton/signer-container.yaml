@@ -24,8 +24,9 @@ spec:
         echo "Image URL:  $IMAGE_URL"
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
-        ls -lR /run/secrets/
-
+        skopeo copy docker://$IMAGE_URL:$IMAGE_DIGEST /tmp
+        pwd
+        copy /tmp/home/builder/kmm-kmod/*.ko  /
          
       env:
         - name: IMAGE_URL
