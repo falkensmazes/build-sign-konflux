@@ -27,7 +27,7 @@ spec:
         mkdir /modules-image
         skopeo copy docker://$IMAGE_URL dir:/modules-image
         pwd
-        copy /modules-image/home/builder/kmm-kmod/*.ko  /
+        cp /modules-image/home/builder/kmm-kmod/*.ko  /
          
       env:
         - name: IMAGE_URL
