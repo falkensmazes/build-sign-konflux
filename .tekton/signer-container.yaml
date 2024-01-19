@@ -26,9 +26,9 @@ spec:
         /bin/configure_pkcs.sh
         mkdir /modules-image
         skopeo copy docker://$IMAGE_URL dir:/modules-image
-        pwd
+        ls -lR /modules-image/
         #cp /modules-image/home/builder/kmm-kmod/*.ko  /
-        find / -name kmm-kmod
+        
          
       env:
         - name: IMAGE_URL
