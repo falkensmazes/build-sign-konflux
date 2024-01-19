@@ -18,7 +18,7 @@ spec:
         #mountPath: /workspace/build-modules
   steps:
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.2 
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.3 
       script: |
         #!/usr/bin/env bash
         set -x
