@@ -18,23 +18,15 @@ spec:
         #mountPath: /workspace/build-modules
   steps:
     - name: copy-file
-      image: docker:latest
+      image: quay.io/skopeo/stable:latest
       workingDir: /workspace
       command:
-      - sh
-      - -c
+      - skopeo
       args:
-      - |
-        # Set up Docker credentials if needed
-        # echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin $DOCKER_REGISTRY
+      - copy
+      - docker://$IMAGE_URL:/home/builder/kmm-kmod/
+      - dir:/workspace
   
-        # Pull the remote Docker image
-        docker pull $IMAGE_URL
-  
-        # Create a temporary container to copy the file from the remote image
-        docker create --name temp-container $IMAGE_URL
-        docker cp temp-container:/home/builder/kmm-kmod/ /workspace/buildmodules/
-        docker rm temp-container
       env:
         - name: IMAGE_URL
           value: $(params.IMAGE_URL)
