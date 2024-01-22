@@ -18,7 +18,7 @@ spec:
         #mountPath: /workspace/build-modules
   steps:
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-0.3 
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0 
       script: |
         #!/usr/bin/env bash
         set -x
@@ -26,7 +26,7 @@ spec:
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && podman rm tc
-        sign_file=$(find /usr/src/kernels -name "sign-file")
+        sign_file="/bin/sign-file"
         # Loop through each .ko file in the directory
         directory="/modules-image/kmm-kmod"
         for file in "$directory"/*.ko; do
