@@ -17,6 +17,25 @@ spec:
       description: The workspace where compile modules will be stored
         #mountPath: /workspace/build-modules
   steps:
+    - name: copy-file
+      image: docker:latest
+      workingDir: /workspace
+      command:
+      - sh
+      - -c
+      args:
+      - |
+        # Set up Docker credentials if needed
+        # echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin $DOCKER_REGISTRY
+  
+        # Pull the remote Docker image
+        docker pull $IMAGE_URL
+  
+        # Create a temporary container to copy the file from the remote image
+        docker create --name temp-container $IMAGE_URL
+        docker cp temp-container:/home/builder/kmm-kmod/ /workspace/buildmodules/
+        docker rm temp-container
+  
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0 
       script: |
@@ -25,20 +44,20 @@ spec:
         echo "Image URL:  $IMAGE_URL"
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
-        sudo podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && sudo podman rm tc
         sign_file="/bin/sign-file"
+        ls -lR /workspace/
         # Loop through each .ko file in the directory
-        directory="/modules-image/kmm-kmod"
-        for file in "$directory"/*.ko; do
+        #directory="/workspace/kmm-kmod"
+        #for file in "$directory"/*.ko; do
           # Check if there are matching files
-          if [ -e "$file" ]; then
+          #  if [ -e "$file" ]; then
             # Sign each module file
-            "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
-            /etc/aws-kms-pkcs11/mycert.pem "$directory/$file" "$directory${file%.ko}-signed.ko"
-          else
-            echo "No .ko files found in the directory"
-            exit 1
-          fi
+            #   "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
+            #/etc/aws-kms-pkcs11/mycert.pem "$directory/$file" "$directory${file%.ko}-signed.ko"
+            # else
+            #echo "No .ko files found in the directory"
+            #exit 1
+            #          fi
         done
                 
          
