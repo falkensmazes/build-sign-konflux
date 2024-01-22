@@ -25,9 +25,7 @@ spec:
         echo "Image URL:  $IMAGE_URL"
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
-        echo "WHO: $(whoami)"
-        cat /etc/subuid
-        podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && podman rm tc
+        sudo podman cp $(podman create --name tc $IMAGE_URL):/home/builder/kmm-kmod/ /modules-image/ && sudo podman rm tc
         sign_file="/bin/sign-file"
         # Loop through each .ko file in the directory
         directory="/modules-image/kmm-kmod"
