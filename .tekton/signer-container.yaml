@@ -21,11 +21,11 @@ spec:
       image: quay.io/skopeo/stable:latest
       workingDir: /workspace
       command:
-      - skopeo
+      - sh
+      - -c
       args:
-      - copy
-      - docker://$IMAGE_URL:/home/builder/kmm-kmod/
-      - dir:/workspace
+      - |
+      - skopeo copy docker://$IMAGE_URL /home/builder/kmm-kmod/ dir:/workspace/
   
       env:
         - name: IMAGE_URL
@@ -54,7 +54,7 @@ spec:
             #echo "No .ko files found in the directory"
             #exit 1
             #          fi
-        done
+            #done
                 
          
       env:
