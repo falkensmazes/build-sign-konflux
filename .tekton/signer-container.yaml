@@ -35,6 +35,10 @@ spec:
         docker create --name temp-container $IMAGE_URL
         docker cp temp-container:/home/builder/kmm-kmod/ /workspace/buildmodules/
         docker rm temp-container
+      env:
+        - name: IMAGE_URL
+          value: $(params.IMAGE_URL)
+        
   
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0 
