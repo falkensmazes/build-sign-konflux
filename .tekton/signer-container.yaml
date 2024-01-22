@@ -18,14 +18,16 @@ spec:
         #mountPath: /workspace/build-modules
   steps:
     - name: copy-file
-      image: quay.io/skopeo/stable:latest
+      image: quay.io/podman/stable
       workingDir: /workspace
       command:
       - sh
       - -c
       args:
       - |
-      - skopeo copy docker://$IMAGE_URL /home/builder/kmm-kmod/ dir:/workspace/
+      - podman run --security-opt label=disable --user podman --device /dev/fuse quay.io/podman/stable 
+        podman run alpine echo hello
+
   
       env:
         - name: IMAGE_URL
