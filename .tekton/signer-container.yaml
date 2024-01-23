@@ -22,7 +22,8 @@ spec:
       script: |
         #!/usr/bin/env bash
         set -x
-        cp -rp /home/builder/kmm-kmod/*.ko /workspace/buildmodules/
+        mkdir /workspace/buildmodules/files
+        cp -rp /home/builder/kmm-kmod/*.ko /workspace/buildmodules/files
   
       env:
         - name: IMAGE_URL
@@ -38,20 +39,20 @@ spec:
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         sign_file="/bin/sign-file"
-        ls -lR /workspace/buildmodules
+        #ls -lR /workspace/buildmodules
         # Loop through each .ko file in the directory
-        #directory="/workspace/kmm-kmod"
-        #for file in "$directory"/*.ko; do
-          # Check if there are matching files
-          #  if [ -e "$file" ]; then
-            # Sign each module file
-            #   "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
-            #/etc/aws-kms-pkcs11/mycert.pem "$directory/$file" "$directory${file%.ko}-signed.ko"
-            # else
-            #echo "No .ko files found in the directory"
-            #exit 1
-            #          fi
-            #done
+        directory="/workspace/buildmodules/files"
+        for file in "$directory"/*.ko; do
+           Check if there are matching files
+            if [ -e "$file" ]; then
+             Sign each module file
+               "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
+            /etc/aws-kms-pkcs11/mycert.pem "$directory/$file" "$directory${file%.ko}-signed.ko"
+             else
+            echo "No .ko files found in the directory"
+            exit 1
+                      fi
+            done
                 
 
       env:
