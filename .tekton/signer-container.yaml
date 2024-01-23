@@ -19,8 +19,8 @@ spec:
   steps:
     - name: copy-files
       image: $(params.IMAGE_URL) 
+      command: ["cp", "/home/builder/kmm-kmod/*.ko", "/buildmodules/"]
       workingDir: /buildmodules
-      command: ["cp", "/home/builder/kmm-kmod/*.ko". "/buildmodules/"]
   
       env:
         - name: IMAGE_URL
