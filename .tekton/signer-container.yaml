@@ -18,10 +18,7 @@ spec:
   steps:
     - name: copy-files
       image: $(params.IMAGE_URL)
-      volumeMounts: 
-        - name: buildmodules
-          mountPath: /workspace/built-modules
-      command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/built-modules/"]
+      command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/buildmodules/"]
   
       env:
         - name: IMAGE_URL
@@ -30,9 +27,6 @@ spec:
   
     - name: signer-container
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0
-      volumeMounts:
-        - name: buildmodules
-          mountPath: /workspace/built-modules
       script: |
         #!/usr/bin/env bash
         set -x
@@ -40,7 +34,7 @@ spec:
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         sign_file="/bin/sign-file"
-        ls -lR /workspace/built-modules
+        ls -lR /workspace/buildmodules
         # Loop through each .ko file in the directory
         #directory="/workspace/kmm-kmod"
         #for file in "$directory"/*.ko; do
