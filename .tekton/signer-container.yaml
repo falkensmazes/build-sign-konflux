@@ -35,11 +35,10 @@ spec:
       script: |
         #!/usr/bin/env bash
         set -x
-        echo "Image URL:  $IMAGE_URL"
-        echo "Image Digest:  $IMAGE_DIGEST"
+        echo "AWS_KMS_TOKEN:  $AWS_KMS_TOKEN"
+        echo "AWS_KMS_KEY_ID:  $AWS_KMS_KEY_ID"
         /bin/configure_pkcs.sh
         sign_file="/bin/sign-file"
-        #ls -lR /workspace/buildmodules
         # Loop through each .ko file in the directory
         directory="/workspace/buildmodules/files"
         for file in "$directory"/*.ko; do
@@ -47,7 +46,6 @@ spec:
             if [ -e "$file" ]; then
             #Sign each module file
             KEYS=$(aws kms list-keys) && echo $KEYS
-            AWS_KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
             /etc/aws-kms-pkcs11/mycert.pem "$file" 
               else
@@ -74,7 +72,7 @@ spec:
             secretKeyRef:
               name: $(params.enriquesecret)
               key: "AWS_SECRET_ACCESS_KEY"
-        - name: AWS_KMS_ID
+        - name: AWS_KMS_KEY_ID
           valueFrom:
             secretKeyRef:
               name: $(params.kms-key-id)
