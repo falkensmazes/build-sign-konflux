@@ -14,14 +14,14 @@ spec:
     - name: IMAGE_DIGEST
   workspaces:
     - name: buildmodules
-      description: The workspace where compile modules will be stored
-        #mountPath: /workspace/build-modules
+
   steps:
     - name: copy-files
-      image: $(params.IMAGE_URL) 
-      commmand: ["ls", "-l"]
-      #command: ["cp", "/home/builder/kmm-kmod/*.ko", "/buildmodules/"]
-      workingDir: /buildmodules
+      image: $(params.IMAGE_URL)
+      volumeMounts: 
+        - name: buildmodules
+          mountPath: /workspace/built-modules
+      command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/built-modules/"]
   
       env:
         - name: IMAGE_URL
@@ -29,7 +29,10 @@ spec:
         
   
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0 
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0
+      volumeMounts:
+        - name: buildmodules
+          mountPath: /workspace/built-modules
       script: |
         #!/usr/bin/env bash
         set -x
@@ -37,7 +40,7 @@ spec:
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         sign_file="/bin/sign-file"
-        ls -lR /buildmodules/
+        ls -lR /workspace/built-modules
         # Loop through each .ko file in the directory
         #directory="/workspace/kmm-kmod"
         #for file in "$directory"/*.ko; do
