@@ -43,7 +43,7 @@ spec:
         # Loop through each .ko file in the directory
         directory="/workspace/buildmodules/files"
         for file in "$directory"/*.ko; do
-           Check if there are matching files
+            #Check if there are matching files
             if [ -e "$file" ]; then
             #Sign each module file
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
