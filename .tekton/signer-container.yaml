@@ -22,7 +22,7 @@ spec:
       script: |
         #!/usr/bin/env bash
         set -x
-        ls -lR /home/builder/kmm-kmod
+        cp -rp /home/builder/kmm-kmod/*.ko /workspace/buildmodules/
   
       env:
         - name: IMAGE_URL
