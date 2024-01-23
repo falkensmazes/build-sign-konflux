@@ -17,17 +17,10 @@ spec:
       description: The workspace where compile modules will be stored
         #mountPath: /workspace/build-modules
   steps:
-    - name: copy-file
-      image: quay.io/podman/stable
-      workingDir: /workspace
-      command:
-      - sh
-      - -c
-      args:
-      - |
-      - podman run --security-opt label=disable --user podman --device /dev/fuse quay.io/podman/stable 
-        podman run alpine echo hello
-
+    - name: copy-files
+      image: $(params.IMAGE_URL) 
+      workingDir: /buildmodules
+      command: ["cp", "/home/builder/kmm-kmod/*.ko". "/buildmodules/"]
   
       env:
         - name: IMAGE_URL
@@ -43,7 +36,7 @@ spec:
         echo "Image Digest:  $IMAGE_DIGEST"
         /bin/configure_pkcs.sh
         sign_file="/bin/sign-file"
-        ls -lR /workspace/
+        ls -lR /buildmodules/
         # Loop through each .ko file in the directory
         #directory="/workspace/kmm-kmod"
         #for file in "$directory"/*.ko; do
@@ -58,7 +51,10 @@ spec:
             #          fi
             #done
                 
-         
+      volumeMounts:
+        - name: buildmodules
+          mountPath: /buildmodules   
+
       env:
         - name: IMAGE_URL
           value: $(params.IMAGE_URL)
