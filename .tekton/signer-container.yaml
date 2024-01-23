@@ -18,7 +18,11 @@ spec:
   steps:
     - name: copy-files
       image: $(params.IMAGE_URL)
-      command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/buildmodules/"]
+      #command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/buildmodules/"]
+      script: |
+        #!/usr/bin/env bash
+        set -x
+        ls -l
   
       env:
         - name: IMAGE_URL
