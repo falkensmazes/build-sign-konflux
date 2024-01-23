@@ -3,7 +3,8 @@
 sed  -i '1i openssl_conf = openssl_init' /etc/pki/tls/openssl.cnf 
 cat /etc/aws-kms-pkcs11/openssl-pkcs11.conf >> /etc/pki/tls/openssl.cnf
 # Set AWS KMS Token ID from variable
-sed -i "s/MY_KMS_ID/$AWS_KMS_TOKEN/g" /etc/aws-kms-pkcs11/config.json
+AWS_KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
+sed -i "s/MY_KMS_ID/$AWS_KMS_KEY_ID/g" /etc/aws-kms-pkcs11/config.json
 # Set the module path
 export PKCS11_MODULE_PATH=/usr/lib64/pkcs11/aws_kms_pkcs11.so
 # Create the public x509 certificate for later signing process

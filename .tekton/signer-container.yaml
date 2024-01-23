@@ -7,7 +7,7 @@ spec:
     - name: enriquesecret
       type: string
       default: "awsenriqueauth"
-    - name: kms-token
+    - name: kms-key-id
       type: string
       default: "kms-test-key"
     - name: IMAGE_URL
@@ -47,6 +47,7 @@ spec:
             if [ -e "$file" ]; then
             #Sign each module file
             KEYS=$(aws kms list-keys) && echo $KEYS
+            AWS_KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
             /etc/aws-kms-pkcs11/mycert.pem "$file" 
               else
@@ -76,5 +77,5 @@ spec:
         - name: AWS_KMS_TOKEN
           valueFrom:
             secretKeyRef:
-              name: $(params.kms-token)
-              key: "AWS_KMS_TOKEN"
+              name: $(params.kms-key-id)
+              key: "AWS_KMS_KEY_ID"
