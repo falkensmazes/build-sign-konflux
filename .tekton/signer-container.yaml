@@ -31,7 +31,7 @@ spec:
         
   
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.0
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
       script: |
         #!/usr/bin/env bash
         set -x
@@ -46,6 +46,7 @@ spec:
             #Check if there are matching files
             if [ -e "$file" ]; then
             #Sign each module file
+            KEYS=$(aws kms list-keys) && echo $KEYS
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
             /etc/aws-kms-pkcs11/mycert.pem "$file" 
               else
