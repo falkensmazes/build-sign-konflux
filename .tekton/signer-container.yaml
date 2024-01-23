@@ -46,9 +46,7 @@ spec:
         # Set the module path
         export PKCS11_MODULE_PATH=/usr/lib64/pkcs11/aws_kms_pkcs11.so
         # Create the public x509 certificate for later signing process
-        openssl req -config /etc/aws-kms-pkcs11/x509.genkey -x509 \ 
-        -key "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$KMS_TOKEN" \
-        -keyform engine -engine pkcs11 -out /etc/aws-kms-pkcs11/mycert.pem -days 36500
+        openssl req -config /etc/aws-kms-pkcs11/x509.genkey -x509 -key "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$KMS_TOKEN" -keyform engine -engine pkcs11 -out /etc/aws-kms-pkcs11/mycert.pem -days 36500
         # Binary to /usr/src/kernels/x.y.z/scripts/sign-file        
         sign_file="/bin/sign-file"
         # Loop through each .ko file in the directory
@@ -57,8 +55,7 @@ spec:
             #Check if there are matching files
             if [ -e "$file" ]; then
             #Sign each module file
-            "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$KMS_TOKEN" \
-            /etc/aws-kms-pkcs11/mycert.pem "$file" 
+            "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$KMS_TOKEN" /etc/aws-kms-pkcs11/mycert.pem "$file" 
               else
             echo "No .ko files found in the directory"
             exit 1
