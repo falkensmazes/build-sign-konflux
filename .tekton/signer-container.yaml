@@ -47,7 +47,7 @@ spec:
             if [ -e "$file" ]; then
             #Sign each module file
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$AWS_KMS_TOKEN" \
-            /etc/aws-kms-pkcs11/mycert.pem "$file" "$directory${file%.ko}-signed.ko"
+            /etc/aws-kms-pkcs11/mycert.pem "$file" 
               else
             echo "No .ko files found in the directory"
             exit 1
