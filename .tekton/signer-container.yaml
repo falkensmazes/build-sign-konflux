@@ -74,7 +74,7 @@ spec:
             secretKeyRef:
               name: $(params.enriquesecret)
               key: "AWS_SECRET_ACCESS_KEY"
-        - name: AWS_KMS_TOKEN
+        - name: AWS_KMS_ID
           valueFrom:
             secretKeyRef:
               name: $(params.kms-key-id)
