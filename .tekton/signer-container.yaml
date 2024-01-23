@@ -22,7 +22,7 @@ spec:
       script: |
         #!/usr/bin/env bash
         set -x
-        ls -l
+        find / -name kmm-kmod 
   
       env:
         - name: IMAGE_URL
