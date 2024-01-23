@@ -51,9 +51,6 @@ spec:
             #          fi
             #done
                 
-      volumeMounts:
-        - name: buildmodules
-          mountPath: /buildmodules   
 
       env:
         - name: IMAGE_URL
