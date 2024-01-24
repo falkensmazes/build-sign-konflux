@@ -95,6 +95,9 @@ spec:
 
     - name: create-signedfiles-image
       image: docker:latest
+      volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
       script: |
         #!/bin/sh
         cd /workspace/buildmodules/files
