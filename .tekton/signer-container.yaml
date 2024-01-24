@@ -12,6 +12,12 @@ spec:
       default: "kms-test-key"
     - name: IMAGE_URL
     - name: IMAGE_DIGEST
+    - name: drivername
+      type: string
+      default: "kmm_ci"
+    - name: driverversion
+      type: string
+      default: "1.0"
   workspaces:
     - name: buildmodules
 
@@ -55,7 +61,7 @@ spec:
             #Check if there are matching files
             if [ -e "$file" ]; then
             #Sign each module file
-            signed-file="$directory/$(basename ${$file%.*})-signed.ko"
+            signed-file="$directory/$(basename ${file%.*})-signed.ko"
             "$sign_file" sha256 "pkcs11:model=0;manufacturer=aws_kms;serial=0;token=$KMS_TOKEN" /etc/aws-kms-pkcs11/mycert.pem "$file" "$signed-file"
               else
             echo "No .ko files found in the directory"
@@ -86,3 +92,24 @@ spec:
             secretKeyRef:
               name: $(params.kms-key-id)
               key: "AWS_KMS_KEY_ID"
+
+    - name: create-signedfiles-image
+      image: docker:latest
+      script: |
+        #!/usr/bin/env bash
+        set -x
+        cd /workspace/buildmodules/files
+        cat <<EOF > Dockerfile
+FROM registry.access.redhat.com/ubi8/ubi-minimal@sha256:288239021a429a311233d73a7d91b0a1dd889ab7bbc247d913e1b5726e25354a
+WORKDIR /drivers
+COPY /workspace/buildmodules/files /drivers
+EOF
+        docker build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
+        docker push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
+
+      env:
+        - name: DRIVER_NAME
+          value: $(params.drivername)                
+        - name: DRIVER_VERSION
+          value: $(params.driverversion)
+
