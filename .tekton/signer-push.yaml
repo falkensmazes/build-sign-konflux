@@ -400,8 +400,6 @@ spec:
       workspaces:
       - name: buildmodules
         workspace: workspace
-      - name: quay-credentials
-        workspace: workspace
  
 #         
     workspaces:

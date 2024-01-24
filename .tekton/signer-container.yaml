@@ -18,11 +18,11 @@ spec:
     - name: driverversion
       type: string
       default: "1.0"
+    - name: quay-credentials
+      type: string
+      default: "quay-enrique-config-json"
   workspaces:
     - name: buildmodules
-    - name: quay-credentials
-      secret:
-        secretName: quay-enrique-config-json
 
 
   steps:
@@ -105,7 +105,7 @@ spec:
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         ls -l /workspace/quay-credentials/
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
-        cat /tekton/secrets/quay-credentials > /kaniko/.docker/config.json
+        echo $QUAY_CONFIG_JSON > /kaniko/.docker/config.json
         /kaniko/executor \
         --context "$(pwd)" \
         --dockerfile "$(pwd)/Dockerfile" \
@@ -116,4 +116,9 @@ spec:
           value: $(params.drivername)                
         - name: DRIVER_VERSION
           value: $(params.driverversion)
+        - name: QUAY_CONFIG_JSON
+          valueFrom:
+            secretKeyRef:
+              name: $(params.quay-credentials)
+              key: "config.json"
 
