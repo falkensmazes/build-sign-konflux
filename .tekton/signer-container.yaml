@@ -101,8 +101,8 @@ spec:
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
 
-        su - podman -c podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
-        su - podman -c podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
+        su - podman -c "podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION ."
+        su - podman -c "podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION"
 
       env:
         - name: DRIVER_NAME
