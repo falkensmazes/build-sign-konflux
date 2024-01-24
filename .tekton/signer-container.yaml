@@ -103,7 +103,7 @@ spec:
         cd /workspace/buildmodules/files
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
-        echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
+        echo "COPY . /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo $QUAY_CONFIG_JSON > /kaniko/.docker/config.json
         /kaniko/executor \
         --context "$(pwd)" \
