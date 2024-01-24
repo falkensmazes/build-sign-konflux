@@ -100,12 +100,9 @@ spec:
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
-        id
-        cat /etc/subuid
-        cat /etc/subgid
 
-        podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
-        podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
+        su - podman -c podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
+        su - podman -c podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
 
       env:
         - name: DRIVER_NAME
