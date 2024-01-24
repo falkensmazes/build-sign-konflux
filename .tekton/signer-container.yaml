@@ -96,8 +96,7 @@ spec:
     - name: create-signedfiles-image
       image: docker:latest
       script: |
-        #!/usr/bin/env bash
-        set -x
+        #!/bin/sh
         cd /workspace/buildmodules/files
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
