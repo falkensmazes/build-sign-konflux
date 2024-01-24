@@ -21,6 +21,9 @@ spec:
   workspaces:
     - name: buildmodules
     - name: quay-credentials
+      secret:
+        secretName: quay-enrique-config-json
+
 
   steps:
     - name: copy-files
