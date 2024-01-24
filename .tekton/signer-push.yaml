@@ -399,7 +399,11 @@ spec:
         - "false"
       workspaces:
       - name: buildmodules
-        workspace: workspace          
+        workspace: workspace
+      - name: quay-credentials
+        secret:
+          secretName: quay-enrique-config-json
+ 
 #         
     workspaces:
     - name: workspace
