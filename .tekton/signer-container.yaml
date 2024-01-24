@@ -94,15 +94,17 @@ spec:
               key: "AWS_KMS_KEY_ID"
 
     - name: create-signedfiles-image
-      image: quay.io/podman/stable:latest  
+      image: gcr.io/kaniko-project/executor:debug  
       script: |
         cd /workspace/buildmodules/files
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
 
-        su - podman -c "podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION ."
-        su - podman -c "podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION"
+        /kaniko/executor \
+        --context "$(pwd)" \
+        --dockerfile "$(pwd)/Dockerfile" \
+        --destination "quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-DRIVER_VERSION"
 
       env:
         - name: DRIVER_NAME
