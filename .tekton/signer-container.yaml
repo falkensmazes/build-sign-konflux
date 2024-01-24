@@ -18,9 +18,6 @@ spec:
     - name: driverversion
       type: string
       default: "1.0"
-    - name: config-json
-      type: string
-      default: "quay-enrique-config-json"
   workspaces:
     - name: buildmodules
     - name: quay-credentials
@@ -104,7 +101,7 @@ spec:
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
-        cat /tekton/secrets/quay-credentials > /kaniko/.docker
+        cat /tekton/secrets/quay-credentials > /kaniko/.docker/config.json
         /kaniko/executor \
         --context "$(pwd)" \
         --dockerfile "$(pwd)/Dockerfile" \
@@ -115,9 +112,4 @@ spec:
           value: $(params.drivername)                
         - name: DRIVER_VERSION
           value: $(params.driverversion)
-        - name: config-json
-          valueFrom:
-            secretKeyRef:
-              name: $(params.config-json)
-              key: "config.json"
 
