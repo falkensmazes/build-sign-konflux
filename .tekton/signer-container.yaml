@@ -94,7 +94,7 @@ spec:
               key: "AWS_KMS_KEY_ID"
 
     - name: create-signedfiles-image
-      image: quay.io/buildah/stable:latest  
+      image: quay.io/podman/stable:latest  
       script: |
         cd /workspace/buildmodules/files
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
