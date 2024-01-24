@@ -94,19 +94,15 @@ spec:
               key: "AWS_KMS_KEY_ID"
 
     - name: create-signedfiles-image
-      image: docker:latest
-      volumeMounts:
-        - name: docker-socket
-          mountPath: /var/run/docker.sock
+      image: quay.io/buildah/stable:latest  
       script: |
-        #!/bin/sh
         cd /workspace/buildmodules/files
         echo "FROM registry.access.redhat.com/ubi8/ubi-minimal:latest" > /workspace/buildmodules/files/Dockerfile
         echo "WORKDIR /drivers" >> /workspace/buildmodules/files/Dockerfile
         echo "COPY /workspace/buildmodules/files /drivers" >> /workspace/buildmodules/files/Dockerfile
 
-        docker build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
-        docker push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
+        podman build -t quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION .
+        podman push quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION
 
       env:
         - name: DRIVER_NAME
