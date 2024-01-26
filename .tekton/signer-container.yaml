@@ -14,13 +14,16 @@ spec:
     - name: IMAGE_DIGEST
     - name: drivername
       type: string
-      default: "kmm_ci"
+      default: "nvidia"
     - name: driverversion
       type: string
-      default: "1.0"
+      default: "535.104.105"
     - name: quay-credentials
       type: string
       default: "quay-enrique-config-json"
+    - name: built-path
+      type: string
+      default: "open-gpu-kernel-modules/kernel-open"
   workspaces:
     - name: buildmodules
 
@@ -28,16 +31,17 @@ spec:
   steps:
     - name: copy-files
       image: $(params.IMAGE_URL)
-      #command: ["cp", "/home/builder/kmm-kmod/*.ko", "/workspace/buildmodules/"]
       script: |
         #!/usr/bin/env bash
         set -x
         mkdir /workspace/buildmodules/files
-        cp -rp /home/builder/kmm-kmod/*.ko /workspace/buildmodules/files
+        cp -rp /home/builder/$BUILT_PATH/*.ko /workspace/buildmodules/files
   
       env:
         - name: IMAGE_URL
           value: $(params.IMAGE_URL)
+        - name: BUILT_PATH
+          value: $(params.built-path)
         
   
     - name: signer-container
