@@ -24,6 +24,10 @@ spec:
     - name: built-path
       type: string
       default: "open-gpu-kernel-modules/kernel-open"
+    - name: rh-activation-key
+      type: string
+      default: "rh-activation-key"
+
   workspaces:
     - name: buildmodules
 
@@ -45,10 +49,13 @@ spec:
         
   
     - name: signer-container
-      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
+      #image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
+      image: registry.access.redhat.com/ubi8/ubi
       script: |
         #!/usr/bin/env bash
         set -x
+        subscription-manager register --org="$ORG_ID" --activationkey="$KEY_ID"
+        dnf update
         echo "AWS_KMS_KEY_ID:  $AWS_KMS_KEY_ID"
         export KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
         # Configure PKCS11 
@@ -100,6 +107,16 @@ spec:
             secretKeyRef:
               name: $(params.kms-key-id)
               key: "AWS_KMS_KEY_ID"
+        - name: ORG_ID
+          valueFrom:
+            secretKeyRef:
+              name: $(params.rh-activation-key)
+              key: "ORG_ID"
+        - name: KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: $(params.rh-activation-key)
+              key: "KEY_ID"
 
     - name: create-signedfiles-image
       image: gcr.io/kaniko-project/executor:debug  
