@@ -47,11 +47,12 @@ spec:
           value: $(params.IMAGE_URL)
         - name: BUILT_PATH
           value: $(params.built-path)
-        
+
+     
   
     - name: signer-container
-      #image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
-      image: registry.access.redhat.com/ubi8/ubi
+      image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
+       #image: registry.access.redhat.com/ubi8/ubi
       script: |
         #!/usr/bin/env bash
         subscription-manager register --org="$ORG_ID" --activationkey="$KEY_ID"
@@ -60,8 +61,13 @@ spec:
         find /usr/src/kernels/ -type f -name "sign-file" -exec cp {} /bin/sign-file \; 
         echo "AWS_KMS_KEY_ID:  $AWS_KMS_KEY_ID"
         export KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
+        
         # Copy config files from source
-        cp 
+        cp /workspace/buildmodules/source/openssl-pkcs11.conf /etc/aws-kms-pkcs11/
+        cp /workspace/buildmodules/source/config.json /etc/aws-kms-pkcs11/
+        cp /workspace/buildmodules/source/x509.genkey /etc/aws-kms-pkcs11/
+
+
         # Configure PKCS11 
         # Add pkcs11 configuration to openssl.cnf
         sed  -i '1i openssl_conf = openssl_init' /etc/pki/tls/openssl.cnf 
