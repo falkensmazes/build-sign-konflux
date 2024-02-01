@@ -4,18 +4,18 @@ metadata:
   name: signer-container
 spec:
   params:
-    - name: enriquesecret
+    - name: AWS_AUTH 
       type: string
       default: "awsenriqueauth"
-    - name: kms-key-id
+    - name: MY_KMS_ID
       type: string
       default: "kms-test-key"
     - name: IMAGE_URL
     - name: IMAGE_DIGEST
-    - name: drivername
+    - name: DRIVER_NAME
       type: string
       default: "nvidia"
-    - name: driverversion
+    - name: DRIVER_VERSION
       type: string
       default: "535.104.105"
     - name: quay-credentials
@@ -105,17 +105,17 @@ spec:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: $(params.enriquesecret)
+              name: $(params.AWS_AUTH)
               key: "AWS_ACCESS_KEY_ID"
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: $(params.enriquesecret)
+              name: $(params.AWS_AUTH)
               key: "AWS_SECRET_ACCESS_KEY"
         - name: AWS_KMS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: $(params.kms-key-id)
+              name: $(params.MY_KMS_ID)
               key: "AWS_KMS_KEY_ID"
         - name: ORG_ID
           valueFrom:
@@ -143,9 +143,9 @@ spec:
 
       env:
         - name: DRIVER_NAME
-          value: $(params.drivername)                
+          value: $(params.DRIVER_NAME)                
         - name: DRIVER_VERSION
-          value: $(params.driverversion)
+          value: $(params.DRIVER_VERSION)
         - name: QUAY_CONFIG_JSON
           valueFrom:
             secretKeyRef:
