@@ -23,7 +23,8 @@ spec:
       default: "quay-enrique-config-json"
     - name: built-path
       type: string
-      default: "open-gpu-kernel-modules/kernel-open"
+      #default: "open-gpu-kernel-modules/kernel-open"
+      default: "kmm-kmod"
     - name: rh-activation-key
       type: string
       default: "rh-activation-key"
