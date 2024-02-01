@@ -14,7 +14,7 @@ spec:
     - name: IMAGE_DIGEST
     - name: DRIVER_NAME
       type: string
-      default: "nvidia"
+      default: "kmm-kmod"
     - name: DRIVER_VERSION
       type: string
       default: "535.104.105"
@@ -51,13 +51,13 @@ spec:
      
   
     - name: signer-container
+      # Image based on ubi8 but with aws-sdk-cpp installed and pkcs11 lib compiled
       image: quay.io/ebelarte/aws-kms-pkcs11-signer:ubi8-1.1
-       #image: registry.access.redhat.com/ubi8/ubi
+      #image: registry.access.redhat.com/ubi8/ubi
       script: |
         #!/usr/bin/env bash
         subscription-manager register --org="$ORG_ID" --activationkey="$KEY_ID"
         dnf update && dnf -y install openssl openssl-pkcs11 kernel-devel unzip less && dnf clean all 
-        ls -lR /workspace/
         find /usr/src/kernels/ -type f -name "sign-file" -exec cp {} /bin/sign-file \; 
         echo "AWS_KMS_KEY_ID:  $AWS_KMS_KEY_ID"
         export KMS_TOKEN=$(echo $AWS_KMS_KEY_ID | cut -c1-32)
@@ -140,6 +140,7 @@ spec:
         --context "$(pwd)" \
         --dockerfile "$(pwd)/Dockerfile" \
         --destination "quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION"
+        --cleanup
 
       env:
         - name: DRIVER_NAME
