@@ -139,7 +139,7 @@ spec:
         /kaniko/executor \
         --context "$(pwd)" \
         --dockerfile "$(pwd)/Dockerfile" \
-        --destination "quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION"
+        --destination "quay.io/ebelarte/rhtap-bundles:$DRIVER_NAME-$DRIVER_VERSION" \
         --cleanup
 
       env:
