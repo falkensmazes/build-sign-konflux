@@ -1,11 +1,11 @@
 #FROM registry.distributed-ci.io/dtk/driver-toolkit:5.14.0-284.51.1.el9_2 as builder
-FROM quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:6e098f5a3eb7d986fccee972ca5ed6a29bfac42b5d7f93c50207c4beabb66b44 as builder
+FROM quay.io/ebelarte/driver-toolkit:4.18.0-513.5.1.el8_9.x86_64 as builder
 
 ARG ARCH='x86_64'
 ARG DRIVER_VERSION='535.104.05'
 ARG DRIVER_EPOCH='1'
-ARG KERNEL_VERSION='5.14.0-284.36.1.el9_2'
-ARG RHEL_VERSION='9.2'
+ARG KERNEL_VERSION='4.18.0-513.5.1.el8_9.x86_64'
+ARG RHEL_VERSION='8.9'
 ARG KERNEL_SOURCES='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
 ARG KERNEL_OUTPUT='/usr/src/kernels/${KERNEL_VERSION}.${ARCH}'
 # Only for kmm_ci:
